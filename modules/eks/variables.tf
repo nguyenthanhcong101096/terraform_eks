@@ -26,10 +26,6 @@ variable "subnets" {
   type = any
 }
 
-variable "public_subnets" {
-  type = any
-}
-
 variable "eks_node_depends" {
   type = any
 }
