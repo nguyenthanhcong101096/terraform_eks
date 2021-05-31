@@ -17,7 +17,7 @@ module "role" {
 
 module "rds" {
   source             = "./modules/rds"
-  rds_security_group = module.security_group.eks_security_group_id
+  rds_security_group = module.security_group.rds_security_group_id
   private_subnets    = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
 }
 
@@ -27,8 +27,8 @@ module "eks" {
   cluster_security_group = module.security_group.eks_security_group_id
 
   subnets                = [
-    module.vpc.private_subnets["private-eks-1"].id,
-    module.vpc.private_subnets["private-eks-2"].id,
+    # module.vpc.private_subnets["private-eks-1"].id,
+    # module.vpc.private_subnets["private-eks-2"].id,
     module.vpc.public_subnets["public-eks-1"].id,
     module.vpc.public_subnets["public-eks-2"].id
   ]
