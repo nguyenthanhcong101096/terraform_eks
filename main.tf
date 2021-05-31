@@ -1,3 +1,7 @@
+module "keypair" {
+  source = "./modules/keypair"
+}
+
 module "vpc" {
   source = "./modules/vpc"
 }
@@ -11,11 +15,11 @@ module "role" {
   source = "./modules/role"
 }
 
-# module "rds" {
-#   source          = "./modules/rds"
-#   sg_private      = module.security_group.eks_security_group_id
-#   private_subnets = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
-# }
+module "rds" {
+  source          = "./modules/rds"
+  sg_private      = module.security_group.eks_security_group_id
+  private_subnets = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
+}
 
 module "eks" {
   source                 = "./modules/eks"
@@ -35,11 +39,11 @@ module "eks" {
     module.role.eks_service_policy
   ]
 
-  #for eks-node
-  eks_node_role_arn = module.role.eks_node_role_arn
-  private_subnets   = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
-  public_subnets    = [module.vpc.public_subnets["public-eks-1"].id, module.vpc.public_subnets["public-eks-2"].id]
-  eks_node_depends  = [
+  eks_node_role_arn   = module.role.eks_node_role_arn
+  ssh_key_name        = module.keypair.key_name
+  node_security_group = module.security_group.eks_node_security_group_id
+
+  eks_node_depends    = [
     module.role.nodes_eks_worker_node_policy,
     module.role.nodes_eks_cni_policy,
     module.role.nodes_ec2_container_registry_read_only
