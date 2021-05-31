@@ -1,7 +1,7 @@
 resource "aws_security_group" "rds" {
   name        = "mysql"
   description = "Allow inbound/outbound traffic"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port       = 3306

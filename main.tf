@@ -27,8 +27,8 @@ module "eks" {
   cluster_security_group = module.security_group.eks_security_group_id
 
   subnets                = [
-    # module.vpc.private_subnets["private-eks-1"].id,
-    # module.vpc.private_subnets["private-eks-2"].id,
+    module.vpc.private_subnets["private-eks-1"].id,
+    module.vpc.private_subnets["private-eks-2"].id,
     module.vpc.public_subnets["public-eks-1"].id,
     module.vpc.public_subnets["public-eks-2"].id
   ]
@@ -42,6 +42,8 @@ module "eks" {
   eks_node_role_arn   = module.role.eks_node_role_arn
   ssh_key_name        = module.keypair.key_name
   node_security_group = module.security_group.eks_node_security_group_id
+  public_subnets      = [module.vpc.public_subnets["public-eks-2"].id, module.vpc.public_subnets["public-eks-2"].id]
+  private_subnets     = [module.vpc.private_subnets["private-eks-2"].id, module.vpc.private_subnets["private-eks-2"].id]
 
   eks_node_depends    = [
     module.role.nodes_eks_worker_node_policy,
