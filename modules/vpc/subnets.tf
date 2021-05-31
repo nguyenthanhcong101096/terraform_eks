@@ -10,8 +10,7 @@ resource "aws_subnet" "public_subnets" {
 
   tags = {
     Environment = var.env
-    Name        = "${each.value.name}-${var.env}"
-    "kubernetes.io/role/elb" = each.value.eks ? "1" : ""
+    Name        = "${each.value.name}-${var.app}-${var.env}"
   }
 
   lifecycle {
@@ -31,8 +30,7 @@ resource "aws_subnet" "private_subnets" {
 
   tags = {
     Environment = var.env
-    Name        = "${each.value.name}-${var.env}"
-    "kubernetes.io/role/elb" = each.value.eks ? "1" : ""
+    Name        = "${each.value.name}-${var.app}-${var.env}"
   }
 
   lifecycle {

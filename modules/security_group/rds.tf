@@ -1,5 +1,5 @@
 resource "aws_security_group" "rds" {
-  name        = "mysql"
+  name        = "rds-${var.app}-${var.env}"
   description = "Allow inbound/outbound traffic"
   vpc_id      = var.vpc_id
 
@@ -8,7 +8,7 @@ resource "aws_security_group" "rds" {
     to_port         = 3306
     protocol        = "tcp"
     cidr_blocks     = ["0.0.0.0/0"]
-    security_groups = [aws_security_group.eks_nodes.id, aws_security_group.eks.id]
+    security_groups = [aws_security_group.eks_nodes.id]
   }
 
   egress {
@@ -19,7 +19,6 @@ resource "aws_security_group" "rds" {
   }
 
   tags = {
-    Name        = "mysql"
-    Environment = "development"
+    Environment = var.env
   }
 }

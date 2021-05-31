@@ -1,9 +1,13 @@
-variable "vpc_cidr_block" {
-  default = "10.0.0.0/16"
-}
-
 variable "env" {
   default = "development"
+}
+
+variable "app" {
+  default = "congnt"
+}
+
+variable "vpc_cidr_block" {
+  default = "10.0.0.0/16"
 }
 
 variable "public_network_config" {

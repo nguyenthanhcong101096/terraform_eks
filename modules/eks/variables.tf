@@ -2,6 +2,10 @@ variable "env" {
   default = "development"
 }
 
+variable "app" {
+  default = "congnt"
+}
+
 variable "cluster_name" {
   default = "my-cluster"
 }
@@ -23,14 +27,6 @@ variable "cluster_security_group" {
 }
 
 variable "subnets" {
-  type = any
-}
-
-variable "public_subnets" {
-  type = any
-}
-
-variable "private_subnets" {
   type = any
 }
 
