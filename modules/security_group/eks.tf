@@ -1,6 +1,6 @@
-resource "aws_security_group" "eks" {
-  name        = "eks_sg_ControlPlaneSecurityGroup"
-  description = "eks_sg_ControlPlaneSecurityGroup"
+resource "aws_security_group" "eks_cluster" {
+  name        = "eks_cluster"
+  description = "Cluster communication with worker nodes"
   vpc_id      = var.vpc_id
 
   egress {
@@ -11,49 +11,26 @@ resource "aws_security_group" "eks" {
   }
 
   tags = {
-    Name        = "ControlPlaneSecurityGroup"
-    Environment = var.env
-  }
-}
-
-resource "aws_security_group" "eks_nodes" {
-  name        = "ClusterSharedNodeSecurityGroup"
-  description = "Communication between all nodes in the cluster"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    self        = true
-  }
-
-  ingress {
-    from_port       = 0
-    to_port         = 0
-    protocol        = "-1"
-    security_groups = [aws_security_group.eks.id]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name        = "ClusterSharedNodeSecurityGroup"
-    Environment = var.env
+    Name = "eks_cluster"
   }
 }
 
 resource "aws_security_group_rule" "cluster_inbound" {
-  description              = "Allow unmanaged nodes to communicate with control plane (all ports)"
-  from_port                = 0
-  protocol                 = "-1"
-  security_group_id        = aws_security_group.eks.id
+  description              = "Allow worker nodes to communicate with the cluster API Server"
+  from_port                = 443
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.eks_cluster.id
   source_security_group_id = aws_security_group.eks_nodes.id
-  to_port                  = 0
+  to_port                  = 443
   type                     = "ingress"
+}
+
+resource "aws_security_group_rule" "cluster_outbound" {
+  description              = "Allow cluster API Server to communicate with the worker nodes"
+  from_port                = 1024
+  protocol                 = "tcp"
+  security_group_id        = aws_security_group.eks_cluster.id
+  source_security_group_id = aws_security_group.eks_nodes.id
+  to_port                  = 65535
+  type                     = "egress"
 }
