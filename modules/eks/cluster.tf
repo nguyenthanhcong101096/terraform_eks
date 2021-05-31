@@ -9,7 +9,7 @@ resource "aws_eks_cluster" "eks" {
     endpoint_public_access  = true
   }
 
-  depends_on = [var.depends]
+  depends_on = [var.eks_depends]
 
   tags = {
     Environment = var.env

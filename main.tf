@@ -20,12 +20,22 @@ module "eks" {
     module.vpc.private_subnets["private-eks-1"].id,
     module.vpc.private_subnets["private-eks-2"].id,
     module.vpc.public_subnets["public-eks-1"].id,
-    module.vpc.public_subnets["public-eks-2"].id,
+    module.vpc.public_subnets["public-eks-2"].id
   ]
 
-  depends                = [
+  eks_depends            = [
     module.role.cluster_eks_cluster_policy,
     module.role.cluster_eks_vpc_resource_controller,
     module.role.eks_service_policy
+  ]
+
+  #for eks-node
+  eks_node_role_arn = module.role.eks_node_role_arn
+  private_subnets   = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
+  public_subnets    = [module.vpc.public_subnets["public-eks-1"].id, module.vpc.public_subnets["public-eks-2"].id]
+  eks_node_depends  = [
+    module.role.nodes_eks_worker_node_policy,
+    module.role.nodes_eks_cni_policy,
+    module.role.nodes_ec2_container_registry_read_only
   ]
 }
