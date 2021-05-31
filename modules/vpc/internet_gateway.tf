@@ -3,7 +3,7 @@ resource "aws_internet_gateway" "igw" {
 
   tags = {
     Environment = var.env
-    Name        = "igw-${var.env}"
+    Name        = "gateway-${var.app}-${var.env}"
   }
 }
 
@@ -17,7 +17,7 @@ resource "aws_route_table" "public" {
 
   tags = {
     Environment = var.env
-    Name        = "rt-public-${var.env}"
+    Name        = "router-${var.app}-${var.env}"
   }
 }
 

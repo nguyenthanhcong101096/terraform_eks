@@ -1,11 +1,11 @@
 resource "aws_db_subnet_group" "rds_subnet_group" {
-  name        = var.rds_subnet_group
+  name        = "mysql-group-${var.app}-${var.env}"
   description = "rds database subnet group"
   subnet_ids  = var.private_subnets
 }
 
 resource "aws_db_instance" "mysql" {
-    identifier                = "mysql"
+    identifier                = "mysql-${var.app}-${var.env}"
     allocated_storage         = 5
     backup_retention_period   = 2
     backup_window             = "01:00-01:30"

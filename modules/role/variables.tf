@@ -5,8 +5,3 @@ variable "env" {
 variable "app" {
   default = "congnt"
 }
-
-variable "vpc_id" {
-  type = any
-}
-

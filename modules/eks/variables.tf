@@ -2,6 +2,10 @@ variable "env" {
   default = "development"
 }
 
+variable "app" {
+  default = "congnt"
+}
+
 variable "cluster_name" {
   default = "my-cluster"
 }

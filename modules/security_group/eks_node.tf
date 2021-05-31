@@ -1,5 +1,5 @@
 resource "aws_security_group" "eks_nodes" {
-  name        = "eks_nodes"
+  name        = "node-${var.app}-${var.env}"
   description = "Security group for all nodes in the cluster"
   vpc_id      = var.vpc_id
   
@@ -18,6 +18,6 @@ resource "aws_security_group" "eks_nodes" {
   }
   
   tags = {
-    Name = "terraform_eks_nodes"
+    Name = "node-${var.app}-${var.env}"
   }
 }

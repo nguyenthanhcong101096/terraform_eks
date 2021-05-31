@@ -1,5 +1,5 @@
 resource "aws_security_group" "rds" {
-  name        = "mysql"
+  name        = "rds-${var.app}-${var.env}"
   description = "Allow inbound/outbound traffic"
   vpc_id      = var.vpc_id
 
@@ -19,7 +19,6 @@ resource "aws_security_group" "rds" {
   }
 
   tags = {
-    Name        = "mysql"
-    Environment = "development"
+    Environment = var.env
   }
 }

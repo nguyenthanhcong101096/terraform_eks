@@ -12,13 +12,13 @@ resource "aws_eks_cluster" "main" {
   depends_on = [var.eks_depends]
 
   tags = {
-    Environment = var.env
+    Environment = "${var.cluster_name}-${var.app}-${var.env}"
   }
 }
 
 resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
-  node_group_name = "public-node-group"
+  node_group_name = "node-${var.app}-${var.env}"
   node_role_arn   = var.eks_node_role_arn
   subnet_ids      = var.subnets
   labels          = {
@@ -42,6 +42,6 @@ resource "aws_eks_node_group" "main" {
   depends_on = [var.eks_node_depends]
 
   tags = {
-    Environment = var.env
+    Environment = "eks-node-${var.app}-${var.env}"
   }
 }

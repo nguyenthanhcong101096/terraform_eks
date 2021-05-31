@@ -1,5 +1,5 @@
 resource "aws_security_group" "eks_cluster" {
-  name        = "eks_cluster"
+  name        = "eks-${var.app}-${var.env}"
   description = "Cluster communication with worker nodes"
   vpc_id      = var.vpc_id
 
@@ -11,6 +11,6 @@ resource "aws_security_group" "eks_cluster" {
   }
 
   tags = {
-    Name = "terraform_eks_cluster"
+    Name = "eks-${var.app}-${var.env}"
   }
 }

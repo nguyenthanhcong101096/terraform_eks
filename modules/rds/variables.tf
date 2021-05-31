@@ -1,3 +1,11 @@
+variable "env" {
+  default = "development"
+}
+
+variable "app" {
+  default = "congnt"
+}
+
 variable db_engine {
   default = "mysql"
 }
@@ -8,10 +16,6 @@ variable db_version {
 
 variable db_instance_class {
   default = "db.t2.micro"
-}
-
-variable rds_subnet_group {
-  default = "rds-subnet-group"
 }
 
 variable private_subnets {
