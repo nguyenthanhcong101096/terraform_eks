@@ -36,7 +36,7 @@ module "eks" {
   eks_depends            = [
     module.role.cluster_eks_cluster_policy,
     module.role.cluster_eks_vpc_resource_controller,
-    module.role.eks_service_policy
+    module.role.cluster_eks_service_policy
   ]
 
   eks_node_role_arn   = module.role.eks_node_role_arn
