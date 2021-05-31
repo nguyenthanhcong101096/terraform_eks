@@ -11,11 +11,11 @@ module "role" {
   source = "./modules/role"
 }
 
-module "rds" {
-  source          = "./modules/rds"
-  sg_private      = module.security_group.eks_security_group_id
-  private_subnets = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
-}
+# module "rds" {
+#   source          = "./modules/rds"
+#   sg_private      = module.security_group.eks_security_group_id
+#   private_subnets = [module.vpc.private_subnets["private-eks-1"].id, module.vpc.private_subnets["private-eks-2"].id]
+# }
 
 module "eks" {
   source                 = "./modules/eks"
