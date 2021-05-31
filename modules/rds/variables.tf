@@ -18,6 +18,6 @@ variable private_subnets {
   type = any
 }
 
-variable sg_private {
+variable rds_security_group {
   type = any
 }

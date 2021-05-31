@@ -19,7 +19,7 @@ resource "aws_db_instance" "mysql" {
     password                  = "password"
     port                      = "3306"
     db_subnet_group_name      = aws_db_subnet_group.rds_subnet_group.id
-    vpc_security_group_ids    = [var.sg_private]
+    vpc_security_group_ids    = [var.rds_security_group]
     skip_final_snapshot       = true
     final_snapshot_identifier = "worker-final"
     publicly_accessible       = true
