@@ -22,7 +22,8 @@ resource "aws_eks_node_group" "node" {
   node_role_arn   = var.eks_node_role_arn
   subnet_ids      = var.subnets
   labels          = {
-    "type" = "cluster-node"
+    type      = "cluster-node"
+    lifecycle = "OnDemand"
   }
 
   remote_access {
