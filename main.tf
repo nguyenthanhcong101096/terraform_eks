@@ -48,5 +48,4 @@ module "eks" {
 
   eks_node_role_arn   = module.role.eks_node_role_arn
   ssh_key_name        = module.keypair.key_name
-  node_security_group = module.security_group.eks_node_security_group_id
 }

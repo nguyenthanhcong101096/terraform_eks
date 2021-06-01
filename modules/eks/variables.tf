@@ -34,10 +34,6 @@ variable "eks_node_depends" {
   type = any
 }
 
-variable "node_security_group" {
-  type = any
-}
-
 variable "ssh_key_name" {
   type = any
 }
