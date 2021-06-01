@@ -10,3 +10,6 @@ variable "vpc_id" {
   type = any
 }
 
+variable "public_subnets" {
+  type = any
+}
