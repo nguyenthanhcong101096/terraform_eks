@@ -16,14 +16,14 @@ module "role" {
   source = "./modules/role"
 }
 
-module "rds" {
-  source             = "./modules/rds"
-  rds_security_group = module.security_group.rds_security_group_id
-  private_subnets    = [
-    module.vpc.private_subnets["private-eks-1"].id,
-    module.vpc.private_subnets["private-eks-2"].id
-  ]
-}
+# module "rds" {
+#   source             = "./modules/rds"
+#   rds_security_group = module.security_group.rds_security_group_id
+#   private_subnets    = [
+#     module.vpc.private_subnets["private-eks-1"].id,
+#     module.vpc.private_subnets["private-eks-2"].id
+#   ]
+# }
 
 module "eks" {
   source                 = "./modules/eks"
